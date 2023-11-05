@@ -52,7 +52,7 @@
                     <x-button wire:click="edit({{$item}})"> <!-- Usamos metodos magicos -->
                         <i class="fas fa-edit"></i>
                     </x-button>
-                    <x-danger-button wire:click="$emit('deleteItem',{{$item->id}})"> <!-- Usamos metodos magicos -->
+                    <x-danger-button wire:click="$dispatch('deleteItem',{{$item->id}})"> <!-- Usamos metodos magicos -->
                         <i class="fas fa-trash"></i>
                     </x-danger-button>
 
@@ -89,7 +89,8 @@
               }).then((result) => {
                 if (result.isConfirmed) {
                     //console.log(id);
-                    Livewire.emitTo('admin.category-crud','delete',id);
+                    //Livewire.emitTo('period-main','delete',id);
+                    Livewire.dispatch('delItem', { period: id })
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',

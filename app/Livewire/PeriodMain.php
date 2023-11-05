@@ -6,46 +6,55 @@ use App\Livewire\Forms\PeriodForm;
 use App\Models\Period;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 class PeriodMain extends Component{
 
     use WithPagination;
     public $isOpen=false;
-    public $period,$search;
-    protected $listeners=['render','delete'=>'delete'];
+    public $search;
+    //protected $listeners=['render','delete'=>'delete'];
+
     public PeriodForm $form;
 
     public function render(){
-        $periods=Period::where('name','like','%'.$this->search.'%')->latest()->paginate();
+        $periods=Period::where('name','like','%'.$this->search.'%')->latest('id')->paginate(6);
         return view('livewire.period-main',compact('periods'));
     }
 
     public function create(){
         $this->isOpen=true;
-        $this->reset(['period']);
+        //$this->reset();
+        $this->form->resetPost();
         $this->resetValidation();
     }
 
     public function store(){
         $this->validate();
-
-        if(!isset($this->period->id)){
-            Period::create($this->period);
+        //dd($this->form->period);
+        if(!isset($this->form->period->id)){
+            Period::create($this->form->all());
         }else{
-            $this->period->save();
+            $period=Period::find($this->form->period->id);
+            $period->save($this->form->period->toArray());
         }
-        $this->reset(['isOpen','period']);
-        $this->emitTo('PeriodMain','render');
-        $this->emit('alert','Registro creado satisfactoriamente');
+        //$this->reset(['isOpen','period']);
+        $this->reset(['isOpen']);
+        //$this->emitTo('PeriodMain','render');
+        //$this->dispatch('render')->to('PeriodMain');
+        //$this->emit('alert','Registro creado satisfactoriamente');
+        $this->dispatch('sweetalert',message:'Registro creado satisfactoriamente');
 
     }
 
     public function edit(Period $period){
-        $this->period=$period;
+        //$this->form=$period->toArray();
+        $this->form->setPost($period);
         $this->isOpen=true;
     }
 
-    public function delete(Period $category){
-        $category->delete();
+    #[On('delItem')]
+    public function delete(Period $period){
+        $period->delete();
     }
 }
