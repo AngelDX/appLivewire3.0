@@ -33,15 +33,15 @@ class SeasonMain extends Component{
         if(!isset($this->form->season->id)){
             Season::create($this->form->all());
             $this->dialog()->success(
-                $title = 'Profile saved',
-                $description = 'Your profile was successfully saved'
+                $title = 'Mensaje del sistema',
+                $description = 'Registro creado'
             );
         }else{
             $season=Season::find($this->form->season->id);
-            $season->save($this->form->season->toArray());
+            $season->update($this->form->all());
             $this->dialog()->success(
-                $title = 'Profile saved',
-                $description = 'Your profile was successfully saved'
+                $title = 'Mensaje del sistema',
+                $description = 'Registro actualizado'
             );
         }
         $this->reset(['isOpen']);
@@ -53,8 +53,7 @@ class SeasonMain extends Component{
         $this->isOpen=true;
     }
 
-    #[On('delItem')]
-    public function delete(Season $season){
+    public function destroy(Season $season){
         $season->delete();
     }
 }

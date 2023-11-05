@@ -36,7 +36,7 @@ class PeriodMain extends Component{
             Period::create($this->form->all());
         }else{
             $period=Period::find($this->form->period->id);
-            $period->save($this->form->period->toArray());
+            $period->update($this->form->all());
         }
         //$this->reset(['isOpen','period']);
         $this->reset(['isOpen']);
