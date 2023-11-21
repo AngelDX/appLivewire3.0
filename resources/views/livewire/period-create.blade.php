@@ -14,14 +14,14 @@
         <div class="flex justify-between mx-2 mb-6">
             <div class="mb-2 md:mr-2 md:mb-0 w-full">
                 <x-label value="Nombre de la categoría" class="font-bold"/>
-                <x-input wire:model="form.datein" type="text" class="w-full"/>
+                <x-input wire:model="form.datein" type="date" class="w-full"/>
                 <x-input-error for="form.datein"/>
             </div>
         </div>
         <div class="flex justify-between mx-2 mb-6">
             <div class="mb-2 md:mr-2 md:mb-0 w-full">
                 <x-label value="Nombre de la categoría" class="font-bold"/>
-                <x-input wire:model="form.dateout" type="text" class="w-full"/>
+                <x-input wire:model="form.dateout" type="date" class="w-full"/>
                 <x-input-error for="form.dateout"/>
             </div>
         </div>

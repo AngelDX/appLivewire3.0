@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\PeriodMain;
+use App\Livewire\SeasonMain;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +28,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::get('/periods',PeriodMain::class)->name('periods');
+    Route::get('/seasons',SeasonMain::class)->name('seasons');
 });

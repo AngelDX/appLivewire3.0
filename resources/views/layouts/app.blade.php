@@ -13,12 +13,16 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        @wireUiScripts
+
         <!-- Styles -->
         @livewireStyles
+
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     </head>
     <body class="font-sans antialiased">
+<<<<<<< HEAD
     <!-- https://tailwindcomponents.com/component/dashboard-template/landing -->
         <div>
             <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
@@ -33,13 +37,34 @@
                     </main>
                 </div>
             </div>
+=======
+        <x-banner />
+
+        <div class="min-h-screen bg-gray-100">
+            @livewire('navigation-menu')
+
+            <!-- Page Heading -->
+            @if (isset($header))
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        <x-dialog />
+                        {{ $header }}
+                    </div>
+                </header>
+            @endif
+
+            <!-- Page Content -->
+            <main>
+                {{ $slot }}
+            </main>
+>>>>>>> 4f7bbf501885d5a65a33e601cb158cdbadbb188d
         </div>
 
         @stack('modals')
 
         @livewireScripts
         <script type="text/javascript">
-            Livewire.on('alert',function(message){
+            Livewire.on('sweetalert',({message})=>{
                 Swal.fire(
                 'Mensaje del sistema',
                 message,
